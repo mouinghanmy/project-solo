@@ -68,8 +68,8 @@ onChange={(e)=>{setimage(e.target.value)}}
 <img src={el.image} />
 
 
-<div>
-    {/* <input type="text"
+{/* <div>
+    <input type="text"
 value={name}
 onChange={(e)=>{setname(e.target.value)}}
 />
@@ -86,8 +86,8 @@ onChange={(e)=>{setcategorie(e.target.value)}}
 value={image}
 onChange={(e)=>{setimage(e.target.value)}}
 />
-// <button onClick={()=>{updatelaptop(el.id,addandupdate)}}> Update Laptop</button> */}
-</div>
+ <button onClick={()=>{updatelaptop(el.id,addandupdate)}}> Update Laptop</button>
+</div> */}
 <button onClick={()=>{deletelaptop(el.id)}}>Delete Laptop </button>
 
         </ul>

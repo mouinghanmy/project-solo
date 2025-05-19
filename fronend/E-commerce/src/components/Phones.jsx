@@ -87,9 +87,9 @@ onChange={(e)=>{setcategorie(e.target.value)}}
 <input type="text"
 value={image}
 onChange={(e)=>{setimage(e.target.value)}}
-/> */}
-{/* <button onClick={()=>{updatephone(el.id,addandupdate)}}> Update Phone</button> */}
-{/* </div> */}
+/>
+<button onClick={()=>{updatephone(el.id,addandupdate)}}> Update Phone</button>
+</div> */}
 <button onClick={()=>{deletephone(el.id)}}>Delete Phone </button>
 
         </ul>
