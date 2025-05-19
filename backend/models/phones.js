@@ -14,15 +14,15 @@ const phones = sequelize.define(
 
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER+'DT',
 
     },
       image: {
       type: DataTypes.STRING,
       }
-    //   ,   categorie: {
-    //   type: DataTypes.STRING,
-    //   }
+      ,   categorie: {
+      type: DataTypes.STRING,
+      }
  
   })
     return phones

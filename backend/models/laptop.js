@@ -14,7 +14,7 @@ const laptop = sequelize.define(
 
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER+'DT',
 
     },
       image: {
