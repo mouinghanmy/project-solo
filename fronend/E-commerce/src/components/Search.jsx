@@ -26,7 +26,7 @@ useEffect(()=>{
       const search = () => {
     console.log("search",term)
     const res=phone.filter((el)=>{
-      return el.categorie===term
+      return el.name===term
     })
     setfiltred(res)
     console.log('res',res);
