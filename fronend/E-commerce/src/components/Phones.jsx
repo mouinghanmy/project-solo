@@ -27,14 +27,14 @@ const addphone=(newphone)=>{
     })
     .catch((err)=>{console.log(err)})
 }
-// const deletephone=(id)=>{
-//     axios.delete(`http://localhost:3000/phones/delete/${id}`)
-//     .then((response)=>{console.log(response.data);
-//         fetch()
-//     })
-//     .catch((err)=>{console.log(err);
-//     })
-// }
+const deletephone=(id)=>{
+    axios.delete(`http://localhost:3000/phones/delete/${id}`)
+    .then((response)=>{console.log(response.data);
+        fetch()
+    })
+    .catch((err)=>{console.log(err);
+    })
+}
 //  const updatephone=(id,updatedphone)=>{
 //    axios.put(`http://localhost:3000/phones/update/${id}`,updatedphone) 
 //    .then((response)=>{console.log(response.data);
@@ -90,7 +90,7 @@ onChange={(e)=>{setimage(e.target.value)}}
 /> */}
 {/* <button onClick={()=>{updatephone(el.id,addandupdate)}}> Update Phone</button> */}
 {/* </div> */}
-{/* <button onClick={()=>{deletephone(el.id)}}>Delete Phone </button> */}
+<button onClick={()=>{deletephone(el.id)}}>Delete Phone </button>
 
         </ul>
         
