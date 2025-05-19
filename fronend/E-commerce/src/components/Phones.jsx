@@ -5,10 +5,10 @@ import { useEffect } from 'react'
 
 function phones() {
 const [phone,setphone]=useState([])
-// const [name,setname]=useState('')
-// const [price,setprice]=useState('')
-// const [categorie,setcategorie]=useState('')
-// const [image,setimage]=useState('')
+const [name,setname]=useState('')
+const [price,setprice]=useState('')
+const [categorie,setcategorie]=useState('')
+const [image,setimage]=useState('')
 
 // const addandupdate={name:name,price:price,categorie:categorie,image:image}
 const fetch=()=>{
@@ -20,13 +20,13 @@ useEffect(()=>{
     fetch()
 },[])
 
-// const addphone=(newphone)=>{
-//     axios.post('http://localhost:3000/phones/post',newphone)
-//     .then((response)=>{console.log(response.data)
-//         fetch()
-//     })
-//     .catch((err)=>{console.log(err)})
-// }
+const addphone=(newphone)=>{
+    axios.post('http://localhost:3000/phones/post',newphone)
+    .then((response)=>{console.log(response.data)
+        fetch()
+    })
+    .catch((err)=>{console.log(err)})
+}
 // const deletephone=(id)=>{
 //     axios.delete(`http://localhost:3000/phones/delete/${id}`)
 //     .then((response)=>{console.log(response.data);
@@ -45,7 +45,7 @@ useEffect(()=>{
 
   return (
     <div>
-{/* <input type="text" 
+<input type="text" 
 value={name}
 onChange={(e)=>{setname(e.target.value)}}
 />
@@ -59,7 +59,7 @@ onChange={(e)=>{setcategorie(e.target.value)}}
 value={image}
 onChange={(e)=>{setimage(e.target.value)}}
 />
-<button onClick={()=>{addphone(addandupdate)}}>Add Phone</button> */}
+<button onClick={()=>{addphone(addandupdate)}}>Add Phone</button>
 
 
       {phone.map((el,i)=>(

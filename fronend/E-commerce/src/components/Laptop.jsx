@@ -25,21 +25,21 @@ const addlaptop=(newlaptop)=>{
     })
     .catch((err)=>{console.log(err)})
 }
-const deletelaptop=(id)=>{
-    axios.delete(`http://localhost:3000/laptop/delete/${id}`)
-    .then((response)=>{console.log(response.data);
-        fetch()
-    })
-    .catch((err)=>{console.log(err);
-    })
-}
- const updatelaptop=(id,updatedlaptop)=>{
-   axios.put(`http://localhost:3000/laptop/update/${id}`,updatedlaptop) 
-   .then((response)=>{console.log(response.data);
-    fetch()
-   })
-   .catch((err)=>{console.log(err)})
- }
+// const deletelaptop=(id)=>{
+//     axios.delete(`http://localhost:3000/laptop/delete/${id}`)
+//     .then((response)=>{console.log(response.data);
+//         fetch()
+//     })
+//     .catch((err)=>{console.log(err);
+//     })
+// }
+//  const updatelaptop=(id,updatedlaptop)=>{
+//    axios.put(`http://localhost:3000/laptop/update/${id}`,updatedlaptop) 
+//    .then((response)=>{console.log(response.data);
+//     fetch()
+//    })
+//    .catch((err)=>{console.log(err)})
+//  }
 
   return (
     <div>
@@ -69,7 +69,7 @@ onChange={(e)=>{setimage(e.target.value)}}
 
 
 <div>
-    <input type="text"
+    {/* <input type="text"
 value={name}
 onChange={(e)=>{setname(e.target.value)}}
 />
@@ -86,9 +86,9 @@ onChange={(e)=>{setcategorie(e.target.value)}}
 value={image}
 onChange={(e)=>{setimage(e.target.value)}}
 />
-<button onClick={()=>{updatelaptop(el.id,addandupdate)}}> Update Laptop</button>
+// <button onClick={()=>{updatelaptop(el.id,addandupdate)}}> Update Laptop</button> */}
 </div>
-<button onClick={()=>{deletelaptop(el.id)}}>Delete Laptop </button>
+{/* <button onClick={()=>{deletelaptop(el.id)}}>Delete Laptop </button> */}
 
         </ul>
         
