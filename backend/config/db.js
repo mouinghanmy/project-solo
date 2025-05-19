@@ -12,12 +12,12 @@ db.sequelize=sequelize
 db.Sequelize=Sequelize
 db.phones=require('../models/phones')(sequelize,DataTypes)
 db.laptop=require('../models/laptop')(sequelize,DataTypes)
-
+db.User=require('../models/user')
 
 
 
 // sequelize.sync({ force: true });
-// console.log('All models were synchronized successfully.');
+// console.log('DB synced successfully.');
 
 
 

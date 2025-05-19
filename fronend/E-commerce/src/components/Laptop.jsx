@@ -1,101 +1,79 @@
 import React from 'react'
 import axios from 'axios'
 import { useState,useEffect } from 'react'
-function laptop() {
-const [laptop,setlaptop]=useState([])
-const [name,setname]=useState('')
-const [price,setprice]=useState('')
-const [categorie,setcategorie]=useState('')
-const [image,setimage]=useState('')
+function Laptop() {
+const [laptop, setLaptop] = useState([])
+  const [name, setName] = useState('')
+  const [price, setPrice] = useState('')
+  const [categorie, setCategorie] = useState('')
+  const [image, setImage] = useState('')
+    const newLaptop = { name:name, price:price, categorie:categorie, image:image };
+    const updatedLaptop = { name:name, price:price, categorie:categorie, image:image };
 
-const addandupdate={name:name,price:price,categorie:categorie,image:image}
-const fetch=()=>{
+  useEffect(() => {
+    fetchLaptop();
+  }, []);
+
+  const fetchLaptop = () => {
     axios.get('http://localhost:3000/laptop/getAll')
-    .then((response)=>{setlaptop(response.data)})
-    .catch((err)=>{console.log(err)})
-}
-useEffect(()=>{
-    fetch()
-},[])
+      .then(res => setLaptop(res.data))
+      .catch(err => console.error(err));
+  }
 
-const addlaptop=(newlaptop)=>{
-    axios.post('http://localhost:3000/laptop/post',newlaptop)
-    .then((response)=>{console.log(response.data)
-        fetch()
-    })
-    .catch((err)=>{console.log(err)})
-}
-const deletelaptop=(id)=>{
+  const addLaptop = () => {
+    axios.post('http://localhost:3000/laptop/post', newLaptop)
+      .then(() => {
+        fetchLaptop();
+        clearInputs();
+      })
+      .catch(err => console.error(err));
+  }
+
+  const deleteLaptop = (id) => {
     axios.delete(`http://localhost:3000/laptop/delete/${id}`)
-    .then((response)=>{console.log(response.data);
-        fetch()
-    })
-    .catch((err)=>{console.log(err);
-    })
-}
-//  const updatelaptop=(id,updatedlaptop)=>{
-//    axios.put(`http://localhost:3000/laptop/update/${id}`,updatedlaptop) 
-//    .then((response)=>{console.log(response.data);
-//     fetch()
-//    })
-//    .catch((err)=>{console.log(err)})
-//  }
+      .then(() => fetchLaptop())
+      .catch(err => console.error(err));
+  }
+
+  const updateLaptop = (id) => {
+    axios.put(`http://localhost:3000/laptop/update/${id}`, updatedLaptop)
+      .then(() => {
+        fetchLaptop();
+        clearInputs();
+      })
+      .catch(err => console.error(err));
+  }
+
+  const clearInputs = () => {
+    setName('')
+    setPrice('')
+    setCategorie('')
+    setImage('')
+  }
 
   return (
     <div>
-<input type="text" 
-value={name}
-onChange={(e)=>{setname(e.target.value)}}
-/>
-<input type="text" 
-value={price}
-onChange={(e)=>{setprice(e.target.value)}}
-/><input type="text" 
-value={categorie}
-onChange={(e)=>{setcategorie(e.target.value)}}
-/><input type="text" 
-value={image}
-onChange={(e)=>{setimage(e.target.value)}}
-/>
-<button onClick={()=>{addlaptop(addandupdate)}}>Add Laptop</button>
+      <h2>Add / Update Laptop </h2>
+      <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
+      <input type="text" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price" />
+      <input type="text" value={categorie} onChange={(e) => setCategorie(e.target.value)} placeholder="Category" />
+      <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image URL" />
+      <button onClick={()=>{addLaptop(newLaptop)}}>Add Laptop</button>
 
-
-      {laptop.map((el,i)=>(
-        <ul key={i}>
-<li>{el.name}</li>
-<li>{el.price}</li>
-<li>{el.categorie}</li>
-<img src={el.image} />
-
-
-{/* <div>
-    <input type="text"
-value={name}
-onChange={(e)=>{setname(e.target.value)}}
-/>
-
-<input type="text"
-value={price}
-onChange={(e)=>{setprice(e.target.value)}}
-/>
-<input type="text"
-value={categorie}
-onChange={(e)=>{setcategorie(e.target.value)}}
-/>
-<input type="text"
-value={image}
-onChange={(e)=>{setimage(e.target.value)}}
-/>
- <button onClick={()=>{updatelaptop(el.id,addandupdate)}}> Update Laptop</button>
-</div> */}
-<button onClick={()=>{deletelaptop(el.id)}}>Delete Laptop </button>
-
+      <h2>Laptop List</h2>
+      {laptop.map((el) => (
+        <ul key={el.id}>
+          <li>{el.name}</li>
+          <li>{el.price}</li>
+          <li>{el.categorie}</li>
+          <img src={el.image}  width="100" />
+          <button onClick={() => updateLaptop(el.id,updatedLaptop)}>Update Laptop</button>
+          <button onClick={() => deleteLaptop(el.id)}>Delete Laptop</button>
         </ul>
-        
       ))}
     </div>
   )
 
 }
 
-export default laptop
+export default Laptop

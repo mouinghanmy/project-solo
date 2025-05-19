@@ -1,102 +1,84 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
-import { useEffect } from 'react'
 
-function phones() {
-const [phone,setphone]=useState([])
-const [name,setname]=useState('')
-const [price,setprice]=useState('')
-const [categorie,setcategorie]=useState('')
-const [image,setimage]=useState('')
+function Phones() {
+  const [phones, setPhones] = useState([])
+  const [name, setName] = useState('')
+  const [price, setPrice] = useState('')
+  const [categorie, setCategorie] = useState('')
+  const [image, setImage] = useState('')
+const newPhone = { name:name, price:price, categorie:categorie, image:image }
+    const updatedPhone = { name:name, price:price, categorie:categorie, image:image }
 
-// const addandupdate={name:name,price:price,categorie:categorie,image:image}
-const fetch=()=>{
+
+  const fetchPhones = () => {
     axios.get('http://localhost:3000/phones/getAll')
-    .then((response)=>{setphone(response.data)})
-    .catch((err)=>{console.log(err)})
-}
-useEffect(()=>{
-    fetch()
-},[])
+      .then(res => setPhones(res.data))
+      .catch(err => console.error(err))
+  }
 
-const addphone=(newphone)=>{
-    axios.post('http://localhost:3000/phones/post',newphone)
-    .then((response)=>{console.log(response.data)
-        fetch()
-    })
-    .catch((err)=>{console.log(err)})
-}
-const deletephone=(id)=>{
+  const addPhone = () => {
+    
+    axios.post('http://localhost:3000/phones/post', newPhone)
+      .then(() => {
+        fetchPhones()
+        clearInputs()
+      })
+      .catch(err => console.error(err))
+  }
+
+  const deletePhone = (id) => {
     axios.delete(`http://localhost:3000/phones/delete/${id}`)
-    .then((response)=>{console.log(response.data);
-        fetch()
-    })
-    .catch((err)=>{console.log(err);
-    })
-}
-//  const updatephone=(id,updatedphone)=>{
-//    axios.put(`http://localhost:3000/phones/update/${id}`,updatedphone) 
-//    .then((response)=>{console.log(response.data);
-//     fetch()
-//    })
-//    .catch((err)=>{console.log(err)})
-//  }
+      .then(() => fetchPhones())
+      .catch(err => console.error(err))
+  }
+
+  const updatePhone = (id) => {
+    axios.put(`http://localhost:3000/phones/update/${id}`, updatedPhone)
+      .then(() => {
+        fetchPhones()
+        clearInputs()
+      })
+      .catch(err => console.error(err));
+  }
+
+  const clearInputs = () => {
+    setName('')
+    setPrice('')
+    setCategorie('')
+    setImage('')
+  }
+  useEffect(() => {
+    fetchPhones()
+  }, [])
 
   return (
     <div>
-<input type="text" 
-value={name}
-onChange={(e)=>{setname(e.target.value)}}
-/>
-<input type="text" 
-value={price}
-onChange={(e)=>{setprice(e.target.value)}}
-/><input type="text" 
-value={categorie}
-onChange={(e)=>{setcategorie(e.target.value)}}
-/><input type="text" 
-value={image}
-onChange={(e)=>{setimage(e.target.value)}}
-/>
-<button onClick={()=>{addphone(addandupdate)}}>Add Phone</button>
+      <h2>Add / Update Phone</h2>
+      <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
+      <input type="text" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price" />
+      <input type="text" value={categorie} onChange={(e) => setCategorie(e.target.value)} placeholder="Category" />
+      <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image URL" />
+      <button onClick={()=>{addPhone(newPhone)}}>Add Phone</button>
 
+      <h2>Phone List</h2>
+      {phones.map((el) => (
+        <ul key={el.id}>
+          <li>{el.name}</li>
+          <li>{el.price}</li>
+          <li>{el.categorie}</li>
+          <img src={el.image} alt={el.name} width="100" />
+          <div>
+                      <button onClick={() => updatePhone(el.id,updatedPhone)}>Update Phone</button>
 
-      {phone.map((el,i)=>(
-        <ul key={i}>
-<li>{el.name}</li>
-<li>{el.price}</li>
-<li>{el.categorie}</li>
-<img src={el.image} />
-
-
-{/* <div>
-    <input type="text"
-value={name}
-onChange={(e)=>{setname(e.target.value)}}
-/>
-
-<input type="text"
-value={price}
-onChange={(e)=>{setprice(e.target.value)}}
-/>
-<input type="text"
-value={categorie}
-onChange={(e)=>{setcategorie(e.target.value)}}
-/>
-<input type="text"
-value={image}
-onChange={(e)=>{setimage(e.target.value)}}
-/>
-<button onClick={()=>{updatephone(el.id,addandupdate)}}> Update Phone</button>
-</div> */}
-<button onClick={()=>{deletephone(el.id)}}>Delete Phone </button>
-
+          </div>
+        <div>
+              <button onClick={() => deletePhone(el.id)}>Delete Phone</button>
+        </div>
         </ul>
-        
       ))}
     </div>
   )
 }
 
-export default phones
+export default Phones

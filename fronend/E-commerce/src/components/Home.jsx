@@ -1,6 +1,6 @@
-import React from 'react';
+// import React from 'react';
 
-function Home() {
+// function Home() {
 //   return (
 //     <div>
 //       <div>
@@ -36,6 +36,68 @@ function Home() {
 //       </div>
 //     </div>
 //   );
+// }
+
+// export default Home;
+import React from 'react'
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+
+import { useState,useEffect } from 'react'
+
+function Home() {
+  const [formData, setFormData] = useState({ email: "", password: "" })
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  };
+
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await axios.post("http://localhost:3000/user/login", formData)
+    console.log("Login success", response.data); // ✅
+    localStorage.setItem("token", response.data.token);
+    alert(response.data.message);
+    navigate("/shoes");
+  } catch (error) {
+    console.error("Login failed", error); // ⛔
+    alert(error.response?.data?.message || "Login failed");
+  }
+};
+
+
+  useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (!token) navigate("/Home"); // or redirect to login
+}, []);
+
+  return (
+     <div className="auth-container">
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit} className="auth-form">
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+
 }
 
-export default Home;
+export default Home

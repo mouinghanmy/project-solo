@@ -14,15 +14,16 @@ const laptop = sequelize.define(
 
     },
     price: {
-      type: DataTypes.INTEGER+'DT',
+      type: DataTypes.INTEGER,
 
     },
       image: {
       type: DataTypes.STRING,
       },
-         categorie: {
-      type: DataTypes.STRING,
-      }
+    categorie: {
+  type: DataTypes.ENUM('PC')
+}
+
  
   })
     return laptop
