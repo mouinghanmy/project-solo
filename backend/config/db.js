@@ -10,8 +10,9 @@ sequelize.authenticate()
 const db={}
 db.sequelize=sequelize
 db.Sequelize=Sequelize
-db.phones=require('../models/phones')(sequelize,DataTypes)
-db.laptop=require('../models/laptop')(sequelize,DataTypes)
+// db.phones=require('../models/phones')(sequelize,DataTypes)
+// db.laptop=require('../models/laptop')(sequelize,DataTypes)
+db.electronic=require('../models/electronic')(sequelize,DataTypes)
 db.User=require('../models/user')
 
 
